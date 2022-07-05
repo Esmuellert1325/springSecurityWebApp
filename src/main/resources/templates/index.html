@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kezdőlap</title>
+</head>
+<body>
+    <div layout:fragment="loginContent">
+        <h1>Kezdőlap</h1><br>
+        <h2>Szerepkörök: </h2>
+        <div th:each="role : ${roles}">
+            <h4 th:text="${role.role}">Sample</h4>
+        </div><br>
+        <h2>Legutóbbi bejelentkezés: <h4 th:text="${last_login}"></h4></h2>
+    </div>
+</body>
+</html>

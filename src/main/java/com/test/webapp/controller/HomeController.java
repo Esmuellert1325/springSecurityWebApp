@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -27,6 +29,9 @@ public class HomeController {
         Long userId = getId(auth.getName());
         model.addAttribute("roles", getRoles(userId));
         model.addAttribute("last_login", userRepo.findLastLogin(userId));
+        Set<String> roles = auth.getAuthorities().stream().map(r -> r.getAuthority()).collect(Collectors.toSet());
+        System.out.println(roles);
+        if (roles.contains("Adminisztrator")) System.out.println("Igen, ő egy admin!");
         return "index";
     }
 

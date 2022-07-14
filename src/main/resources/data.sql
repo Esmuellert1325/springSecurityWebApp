@@ -13,3 +13,15 @@ insert into users_roles (user_id, role_id) values (2, 2)
 insert into users_roles (user_id, role_id) values (2, 3)
 insert into users_roles (user_id, role_id) values (3, 2)
 insert into users_roles (user_id, role_id) values (4, 3)
+
+-- Könyvek beszúrása
+insert into books(author, release, title) values ('JK Rowling', 1997, 'Harry Potter and the Philosophers Stone')
+-- Kategóriák beszúrása
+insert into categories (category) values ('Fantasy')
+-- Könyvek és kategóriák összekapcsolása
+insert into BOOK_CATEGORIES (book_id, category_id) values (1, 1)
+
+--Még kellhet:
+--select categories.category
+--from categories, books, book_categories
+--where book_categories.book_id = books.id and book_categories.category_id = categories.id

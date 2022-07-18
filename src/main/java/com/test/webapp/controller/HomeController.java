@@ -1,6 +1,8 @@
 package com.test.webapp.controller;
 
+import com.test.webapp.entity.Book;
 import com.test.webapp.entity.Role;
+import com.test.webapp.repo.BookRepository;
 import com.test.webapp.repo.RoleRepository;
 import com.test.webapp.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
 
     @Autowired
     RoleRepository roleRepo;
-
     @Autowired
     UserRepository userRepo;
+    @Autowired
+    BookRepository bookRepo;
 
     @RequestMapping("/")
     public String home(Model model) {
@@ -29,9 +30,9 @@ public class HomeController {
         Long userId = getId(auth.getName());
         model.addAttribute("roles", getRoles(userId));
         model.addAttribute("last_login", userRepo.findLastLogin(userId));
-        Set<String> roles = auth.getAuthorities().stream().map(r -> r.getAuthority()).collect(Collectors.toSet());
-        System.out.println(roles);
-        if (roles.contains("Adminisztrator")) System.out.println("Igen, ő egy admin!");
+//        Set<String> roles = auth.getAuthorities().stream().map(r -> r.getAuthority()).collect(Collectors.toSet());
+//        System.out.println(roles);
+//        if (roles.contains("Adminisztrator")) System.out.println("Van admin jogod");
         return "index";
     }
 
@@ -66,6 +67,18 @@ public class HomeController {
             if (role.getRole().equals("Adminisztrator")) return "admin";
         }
         return "error";
+    }
+
+    @RequestMapping("/books")
+    public String books(Model model) {
+        List<Book> books = getBooks();
+        model.addAttribute("allBooks", books);
+        return "books";
+    }
+
+    private List<Book> getBooks() {
+        List<Book> books = bookRepo.findAllBooks();
+        return books;
     }
 
     private List<Role> getRoles(Long userId) {

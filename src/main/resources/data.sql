@@ -16,10 +16,16 @@ insert into users_roles (user_id, role_id) values (4, 3)
 
 -- Könyvek beszúrása
 insert into books(author, release, title) values ('JK Rowling', 1997, 'Harry Potter and the Philosophers Stone')
+insert into books(author, release, title) values ('Stephen King', 1977, 'The Shining')
+insert into books(author, release, title) values ('Ernest Cline', 2011, 'Ready Player One')
 -- Kategóriák beszúrása
 insert into categories (category) values ('Fantasy')
+insert into categories (category) values ('Horror')
+insert into categories (category) values ('Sci-Fi')
 -- Könyvek és kategóriák összekapcsolása
 insert into BOOK_CATEGORIES (book_id, category_id) values (1, 1)
+insert into BOOK_CATEGORIES (book_id, category_id) values (2, 2)
+insert into BOOK_CATEGORIES (book_id, category_id) values (3, 3)
 
 --Még kellhet:
 --select categories.category

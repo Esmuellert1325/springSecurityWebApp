@@ -61,7 +61,9 @@ public class HomeController {
     @RequestMapping("/admin")
     public String admin() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
         Long userId = getId(auth.getName());
+        System.out.println(auth.getName());
         List<Role> roles = getRoles(userId);
         for (Role role : roles) {
             if (role.getRole().equals("Adminisztrator")) return "admin";

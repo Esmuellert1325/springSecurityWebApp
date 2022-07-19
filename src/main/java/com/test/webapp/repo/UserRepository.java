@@ -9,7 +9,7 @@ import java.util.Date;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    User findByName(String name);
+    User findByEmail(String email);
 
     @Query(value = "select last_login from users where users.id = :inputId", nativeQuery = true)
     Date findLastLogin(@Param("inputId") Long inputId);

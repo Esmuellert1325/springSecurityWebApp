@@ -9,16 +9,15 @@
     <link rel="stylesheet" href="/css/books.css" />
 </head>
 <body>
-    <div layout:fragment="loginContent" class="book-container">
-        <h1>Tárolt könyvek: </h1>
-        <div th:each="book : ${allBooks}">
-            <div class="book-box">
+    <div layout:fragment="loginContent">
+        <h1>Tárolt könyvek: </h1><br>
+        <div class="book-container">
+            <div th:each="book : ${allBooks}" class="book-box">
                 <h3 th:text="${book.title}">Könyv címe</h3>
                 <h3 th:text="${book.author}">Könyv szerzője</h3>
                 <h3>Műfajok: </h3>
                 <div class="genres">
-                    <h4>Műfaj 1</h4>
-                    <h4>Műfaj 2</h4>
+                    <h4 th:each="category : ${book.categories}" th:text="${category.category}">Műfaj...</h4>
                 </div>
             </div>
         </div>

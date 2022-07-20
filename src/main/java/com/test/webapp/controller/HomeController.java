@@ -2,6 +2,7 @@ package com.test.webapp.controller;
 
 import com.test.webapp.entity.Book;
 import com.test.webapp.entity.Role;
+import com.test.webapp.entity.User;
 import com.test.webapp.repo.BookRepository;
 import com.test.webapp.repo.RoleRepository;
 import com.test.webapp.repo.UserRepository;
@@ -10,8 +11,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -78,6 +83,25 @@ public class HomeController {
         return "books";
     }
 
+    @RequestMapping("/registration")
+    public String Registration(Model model) {
+        model.addAttribute("user", new User());
+        return "registration";
+    }
+
+    @PostMapping("/reg")
+    public String reg(@ModelAttribute User user) {
+        userRepo.registerNewUser(
+                user.getEmail(),
+                user.getFirstName(),
+                user.getLastName(),
+                String.format("{noop}%s", user.getPassword()),
+                new Date(),
+                user.getBirthDate()
+        );
+        return "login";
+    }
+
     private List<Book> getBooks() {
         List<Book> books = bookRepo.findAllBooks();
         return books;
@@ -88,8 +112,8 @@ public class HomeController {
         return roles;
     }
 
-    private Long getId(String name) {
-        Long id = roleRepo.getUserId(name);
+    private Long getId(String email) {
+        Long id = roleRepo.getUserId(email);
         return id;
     }
 }

@@ -20,6 +20,9 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Kezdőlap</a>
                 </li>
+                <li class="nav-item active " th:if="!${#request.userPrincipal}">
+                    <a class="nav-link" href="/registration">Regisztráció</a>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/books">Könyvek</a>
                 </li>

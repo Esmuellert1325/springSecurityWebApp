@@ -26,6 +26,8 @@ public class ApplicationSecurityConf extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/books").permitAll()
+                .antMatchers("/registration").anonymous()
+                .antMatchers("/reg").anonymous()
                 .antMatchers("/css/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
